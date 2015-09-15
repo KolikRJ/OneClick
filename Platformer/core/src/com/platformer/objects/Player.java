@@ -109,7 +109,16 @@ public class Player {
 				dx = maxSpeed;
 		}
 		
-		
+		if (dx > 0 && !right) {
+			dx -= stopSpeed * delta;
+			if (dx < 0)
+				dx = 0;
+		} else if (dx < 0 && !left) {
+			dx += stopSpeed * delta;
+			if (dx > 0) {
+				dx = 0;
+			}
+		}
 
 		if (jumping) {
 			dy = jumpSpeed;
