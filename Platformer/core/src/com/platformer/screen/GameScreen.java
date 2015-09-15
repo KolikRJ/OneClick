@@ -26,10 +26,9 @@ public class GameScreen implements Screen {
 	public GameScreen(SpriteBatch batch) {
 		map = new MyMap(batch, "level1.tmx");
 
-		debug = new Debug(map, map.getCamera());
-
 		player = new Player(map, batch);
 
+		debug = new Debug(map, player, map.getCamera());
 	}
 
 	// Используется когда вызывается данный экран
@@ -45,10 +44,11 @@ public class GameScreen implements Screen {
 
 		map.render();
 		keyPressed();
-		if (debug.isDebug())
-			debug.render();
 		
 		player.render(delta);
+		
+		if (debug.isDebug())
+			debug.render();
 	}
 
 	private void keyPressed() {
@@ -60,10 +60,8 @@ public class GameScreen implements Screen {
 		}
 		if (tab == 1) {
 			debug.setDebug(true);
-			player.setDebug(true);
 		} else {
 			debug.setDebug(false);
-			player.setDebug(false);
 		}
 
 	}

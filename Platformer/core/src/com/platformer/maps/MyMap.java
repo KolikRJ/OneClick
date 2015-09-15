@@ -50,7 +50,7 @@ public class MyMap {
 		return y / prop.getHeightTile();
 	}
 	
-	public boolean getTile(int index, int x, int y){
+	public boolean getTile(String index, int x, int y){
 		return ((TiledMapTileLayer) map.getLayers().get(index)).getCell(x, y) != null;
 	}
 	

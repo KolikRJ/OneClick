@@ -5,10 +5,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.platformer.maps.MyCamera;
 import com.platformer.maps.MyMap;
+import com.platformer.objects.Player;
 
 public class Debug {
 
 	private ShapeRenderer sr;
+
+	private MyMap map;
+	private Player player;
 
 	private int mapWidth;
 	private int mapHeight;
@@ -17,10 +21,11 @@ public class Debug {
 
 	private boolean debug;
 
-	public Debug(MyMap map, MyCamera camera) {
+	public Debug(MyMap map, Player player, MyCamera camera) {
 		sr = new ShapeRenderer();
+		this.map = map;
+		this.player = player;
 		sr.setProjectionMatrix(camera.combined);
-		sr.setColor(Color.GREEN);
 
 		mapWidth = map.getWidthMap();
 		mapHeight = map.getHeightMap();
@@ -31,11 +36,14 @@ public class Debug {
 	public void render() {
 		if (debug) {
 			sr.begin(ShapeType.Line);
-
+			sr.setColor(Color.GREEN);
 			for (int hor = 0; hor < mapWidth; hor += tileWidth)
 				for (int ver = 0; ver < mapHeight; ver += tileHeight)
-					sr.rect(hor, ver, tileWidth, tileHeight);
-
+					if (map.getTile("Ground", hor / tileWidth, ver / tileHeight))
+						sr.rect(hor, ver, tileWidth, tileHeight);
+			
+			sr.setColor(Color.RED);
+			sr.rect(player.getX(), player.getY(), player.getWidth(), player.getHeight());
 			sr.end();
 		}
 	}
@@ -51,5 +59,5 @@ public class Debug {
 	public void setDebug(boolean debug) {
 		this.debug = debug;
 	}
-	
+
 }

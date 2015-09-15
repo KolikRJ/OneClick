@@ -2,13 +2,9 @@ package com.platformer.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.platformer.maps.MyMap;
 import com.platformer.maps.MyPropertiesObject;
 
@@ -18,9 +14,6 @@ public class Player {
 	private MyPropertiesObject propObject;
 
 	private SpriteBatch batch;
-	private ShapeRenderer sr;
-	
-	private boolean isDebug;
 
 	private MyMap map;
 
@@ -57,10 +50,6 @@ public class Player {
 		this.player = map.getRender().getPlayer();
 
 		propObject = new MyPropertiesObject(player);
-
-		sr = new ShapeRenderer();
-		sr.setProjectionMatrix(map.getCamera().combined);
-		sr.setColor(Color.RED);
 
 		width = propObject.getWidthObject();
 		height = propObject.getHeightObject();
@@ -142,11 +131,11 @@ public class Player {
 			dy = 0;
 		}
 
-		if(isDebug)
-		debug();
-
-		player.setX(x += dx);
-		player.setY(y += dy);
+		x += dx;
+		y += dy;
+		
+		player.setX(x);
+		player.setY(y);
 
 	}
 
@@ -178,20 +167,37 @@ public class Player {
 
 	}
 
-	public void debug() {
-		sr.begin(ShapeType.Line);
-		sr.rect(player.getX() - width / 2, player.getY() - height / 2, width, height);
-		sr.line(player.getX() - width / 2, player.getY() - height / 2, player.getX() + width / 2, player.getY() + height / 2);
-		sr.line(player.getX() - width / 2, player.getY() + height / 2, player.getX() + width / 2, player.getY() - height / 2);
-		sr.end();
+	public float getX() {
+		return x - width / 2;
 	}
 
-	public boolean isDebug() {
-		return isDebug;
+	public void setX(float x) {
+		this.x = x;
 	}
 
-	public void setDebug(boolean isDebug) {
-		this.isDebug = isDebug;
+	public float getY() {
+		return y - height / 2;
+	}
+
+	public void setY(float y) {
+		this.y = y;
+	}
+
+	public float getWidth() {
+		return width;
+	}
+
+	public void setWidth(float width) {
+		this.width = width;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
 	}
 	
+
 }
