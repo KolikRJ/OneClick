@@ -108,6 +108,8 @@ public class Player {
 			if (dx > maxSpeed)
 				dx = maxSpeed;
 		}
+		
+		
 
 		if (dx > 0 && !right) {
 			dx -= stopSpeed * delta;
