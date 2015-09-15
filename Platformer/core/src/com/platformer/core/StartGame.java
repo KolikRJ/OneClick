@@ -1,27 +1,56 @@
 package com.platformer.core;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.platformer.screen.GameScreen;
+import com.platformer.screen.MenuScreen;
 
-public class StartGame extends ApplicationAdapter {
+public class StartGame extends Game implements ApplicationListener {
+
 	SpriteBatch batch;
-	Texture img;
-	
+	MenuScreen menuScreen;
+	GameScreen gameScreen;
+
 	@Override
-	public void create () {
+	public void create() {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		menuScreen = new MenuScreen();
+		gameScreen = new GameScreen(batch);
+		setScreen(menuScreen);
 	}
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void resize(int width, int height) {
+
+	}
+
+	@Override
+	public void render() {
+		getScreen().render(Gdx.graphics.getDeltaTime());
+
+		if (Gdx.input.justTouched())
+			if (getScreen() == gameScreen)
+				setScreen(menuScreen);
+			else
+				setScreen(gameScreen);
+
+	//	System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
+
+	}
+
+	@Override
+	public void pause() {
+	}
+
+	@Override
+	public void resume() {
+	}
+
+	@Override
+	public void dispose() {
+		menuScreen.dispose();
+		gameScreen.dispose();
 	}
 }
