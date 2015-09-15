@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 //Класс для загрузки карт
 
-public class LoadingMap {
+public class MyMap {
 
 	// Создали переменную
 	private TiledMap map;
@@ -16,9 +16,9 @@ public class LoadingMap {
 	private Renderer renderer;
 	
 	private MyPropertiesMap prop;
-
+	
 	// Загрузка карт
-	public LoadingMap(SpriteBatch batch, String path) {
+	public MyMap(SpriteBatch batch, String path) {
 		map = new TmxMapLoader().load(path);
 		renderer = new Renderer(map, batch);
 		prop = new MyPropertiesMap(map);
@@ -34,8 +34,12 @@ public class LoadingMap {
 		renderer.render();
 	}
 	
-	public int getTileHeight(TiledMapTileLayer layer){
-		return layer.getHeight();
+	public int getTileHeight(String index){
+		return (int) ((TiledMapTileLayer) map.getLayers().get(index)).getTileHeight();
+	}
+	
+	public int getTileWidth(String index){
+		return (int) ((TiledMapTileLayer) map.getLayers().get(index)).getTileWidth();
 	}
 	
 	public int getHorTile(int x){
@@ -46,12 +50,24 @@ public class LoadingMap {
 		return y / prop.getHeightTile();
 	}
 	
-	public boolean getTile(TiledMapTileLayer layer, int hor, int ver){
-		return layer.getCell(hor, ver) != null;
+	public boolean getTile(int index, int x, int y){
+		return ((TiledMapTileLayer) map.getLayers().get(index)).getCell(x, y) != null;
+	}
+	
+	public int getWidthMap(){
+		return prop.getWidthMap();
+	}
+	
+	public int getHeightMap(){
+		return prop.getHeightMap();
 	}
 	
 	public Renderer getRender(){
 		return renderer;
+	}
+	
+	public MyCamera getCamera(){
+		return renderer.getCamera();
 	}
 	
 	// Выгружает используемые объекты

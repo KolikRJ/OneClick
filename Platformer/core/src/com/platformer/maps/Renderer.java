@@ -81,4 +81,8 @@ public class Renderer {
 		return (TiledMapTileLayer) map.getLayers().get(str);
 	}
 
+	public MyCamera getCamera() {
+		return camera;
+	}
+
 }

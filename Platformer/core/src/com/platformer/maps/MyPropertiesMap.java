@@ -14,23 +14,23 @@ public class MyPropertiesMap {
 		prop = map.getProperties();
 	}
 
-	// Ширина карты в пикселях
-	public int getWidthMap() {
+	// Ширина карты в тайлах
+	public int getWidthMapTiles() {
 		return prop.get("width", Integer.class);
 	}
 
-	// Высота карты в пикселях
-	public int getHeightMap() {
+	// Высота карты в тайлах
+	public int getHeightMapTiles() {
 		return prop.get("height", Integer.class);
 	}
 
-	// Количество тайлов по горизонтали
-	public int getWidthMapPixels() {
+	// Ширина карты
+	public int getWidthMap() {
 		return prop.get("width", Integer.class) * prop.get("tilewidth", Integer.class);
 	}
 
-	// Количество тайлов по вертикали
-	public int getHeightMapPixels() {
+	// Высота карты
+	public int getHeightMap() {
 		return prop.get("height", Integer.class) * prop.get("tileheight", Integer.class);
 	}
 

@@ -2,11 +2,14 @@ package com.platformer.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.platformer.maps.LoadingMap;
+import com.platformer.maps.MyMap;
 import com.platformer.maps.MyPropertiesObject;
 
 public class Player {
@@ -15,10 +18,11 @@ public class Player {
 	private MyPropertiesObject propObject;
 
 	private SpriteBatch batch;
+	private ShapeRenderer sr;
+	
+	private boolean isDebug;
 
-	private TiledMapTileLayer layer;
-
-	private LoadingMap map;
+	private MyMap map;
 
 	private float x;
 	private float y;
@@ -46,13 +50,17 @@ public class Player {
 	private boolean jumping;
 	private boolean falling;
 
-	public Player(LoadingMap map, SpriteBatch batch) {
+	public Player(MyMap map, SpriteBatch batch) {
 
 		this.batch = batch;
 		this.map = map;
 		this.player = map.getRender().getPlayer();
 
 		propObject = new MyPropertiesObject(player);
+
+		sr = new ShapeRenderer();
+		sr.setProjectionMatrix(map.getCamera().combined);
+		sr.setColor(Color.RED);
 
 		width = propObject.getWidthObject();
 		height = propObject.getHeightObject();
@@ -66,10 +74,10 @@ public class Player {
 		gravity = 10;
 
 		player.setY(player.getY() + height);
-		
+
 		x = player.getX() + width / 2;
 		y = player.getY() + height / 2;
-		
+
 		player.setX(x);
 		player.setY(y);
 
@@ -108,7 +116,7 @@ public class Player {
 			if (dx > maxSpeed)
 				dx = maxSpeed;
 		}
-		
+
 		if (dx > 0 && !right) {
 			dx -= stopSpeed * delta;
 			if (dx < 0)
@@ -133,6 +141,9 @@ public class Player {
 		} else {
 			dy = 0;
 		}
+
+		if(isDebug)
+		debug();
 
 		player.setX(x += dx);
 		player.setY(y += dy);
@@ -160,10 +171,27 @@ public class Player {
 		int topTile = map.getVerTile((int) (y + height / 2));
 		int bottonTile = map.getVerTile((int) (y - height / 2));
 
-		topLeft = map.getTile(layer, topTile, leftTile);
-		topRight = map.getTile(layer, topTile, rightTile);
-		bottomLeft = map.getTile(layer, bottonTile, leftTile);
-		topLeft = map.getTile(layer, bottonTile, rightTile);
+		// topLeft = map.getTile(layer, topTile, leftTile);
+		// topRight = map.getTile(layer, topTile, rightTile);
+		// bottomLeft = map.getTile(layer, bottonTile, leftTile);
+		// topLeft = map.getTile(layer, bottonTile, rightTile);
 
 	}
+
+	public void debug() {
+		sr.begin(ShapeType.Line);
+		sr.rect(player.getX() - width / 2, player.getY() - height / 2, width, height);
+		sr.line(player.getX() - width / 2, player.getY() - height / 2, player.getX() + width / 2, player.getY() + height / 2);
+		sr.line(player.getX() - width / 2, player.getY() + height / 2, player.getX() + width / 2, player.getY() - height / 2);
+		sr.end();
+	}
+
+	public boolean isDebug() {
+		return isDebug;
+	}
+
+	public void setDebug(boolean isDebug) {
+		this.isDebug = isDebug;
+	}
+	
 }
