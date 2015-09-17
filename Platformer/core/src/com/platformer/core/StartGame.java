@@ -4,20 +4,20 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.platformer.screen.GameScreen;
-import com.platformer.screen.MenuScreen;
+import com.platformer.screen.MyGameScreen;
+import com.platformer.screen.MyMenuScreen;
 
 public class StartGame extends Game implements ApplicationListener {
 
 	SpriteBatch batch;
-	MenuScreen menuScreen;
-	GameScreen gameScreen;
+	MyMenuScreen menuScreen;
+	MyGameScreen gameScreen;
 
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		menuScreen = new MenuScreen();
-		gameScreen = new GameScreen(batch);
+		menuScreen = new MyMenuScreen();
+		gameScreen = new MyGameScreen(batch);
 		setScreen(menuScreen);
 	}
 

@@ -7,41 +7,41 @@ public class MyPropertiesMap {
 
 	// Класс свойств карты
 
-	private MapProperties prop;
+	private static MapProperties PROP;
 
 	// Загрузка карты
-	public MyPropertiesMap(TiledMap map) {
-		prop = map.getProperties();
+	public static void loadMapProperties(TiledMap map){
+		PROP = map.getProperties();
 	}
 
 	// Ширина карты в тайлах
-	public int getWidthMapTiles() {
-		return prop.get("width", Integer.class);
+	public static int getWidthMapTiles() {
+		return PROP.get("width", Integer.class);
 	}
 
 	// Высота карты в тайлах
-	public int getHeightMapTiles() {
-		return prop.get("height", Integer.class);
+	public static int getHeightMapTiles() {
+		return PROP.get("height", Integer.class);
 	}
 
 	// Ширина карты
-	public int getWidthMap() {
-		return prop.get("width", Integer.class) * prop.get("tilewidth", Integer.class);
+	public static int getWidthMap() {
+		return PROP.get("width", Integer.class) * PROP.get("tilewidth", Integer.class);
 	}
 
 	// Высота карты
-	public int getHeightMap() {
-		return prop.get("height", Integer.class) * prop.get("tileheight", Integer.class);
+	public static int getHeightMap() {
+		return PROP.get("height", Integer.class) * PROP.get("tileheight", Integer.class);
 	}
 
 	// Ширина тайла
-	public int getWidthTile() {
-		return prop.get("tilewidth", Integer.class);
+	public static int getWidthTile() {
+		return PROP.get("tilewidth", Integer.class);
 	}
 
 	// Высота тайла
-	public int getHeightTile() {
-		return prop.get("tileheight", Integer.class);
+	public static int getHeightTile() {
+		return PROP.get("tileheight", Integer.class);
 	}
 
 }

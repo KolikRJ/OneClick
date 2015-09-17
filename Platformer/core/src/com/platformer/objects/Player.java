@@ -2,20 +2,13 @@ package com.platformer.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
-import com.platformer.maps.MyMap;
 import com.platformer.maps.MyPropertiesObject;
 
 public class Player {
 
 	private TextureMapObject player;
 	private MyPropertiesObject propObject;
-
-	private SpriteBatch batch;
-
-	private MyMap map;
 
 	private float x;
 	private float y;
@@ -43,11 +36,7 @@ public class Player {
 	private boolean jumping;
 	private boolean falling;
 
-	public Player(MyMap map, SpriteBatch batch) {
-
-		this.batch = batch;
-		this.map = map;
-		this.player = map.getRender().getPlayer();
+	public Player() {
 
 		propObject = new MyPropertiesObject(player);
 
@@ -73,7 +62,6 @@ public class Player {
 	}
 
 	public void render(float delta) {
-		renderObject(player);
 		key();
 		move(delta);
 	}
@@ -136,34 +124,6 @@ public class Player {
 		
 		player.setX(x);
 		player.setY(y);
-
-	}
-
-	private void renderObject(TextureMapObject object) {
-
-		TextureRegion region = object.getTextureRegion();
-		float scaleX = object.getScaleX();
-		float scaleY = object.getScaleY();
-		float originX = object.getOriginX();
-		float originY = object.getOriginY();
-		float rotation = object.getRotation();
-
-		batch.begin();
-		batch.draw(region, x - width / 2, y - height / 2, originX, originY, width, height, scaleX, scaleY, -rotation);
-		batch.end();
-	}
-
-	private void isFree(float x, float y) {
-
-		int leftTile = map.getHorTile((int) (x - width / 2));
-		int rightTile = map.getHorTile((int) (x + width / 2));
-		int topTile = map.getVerTile((int) (y + height / 2));
-		int bottonTile = map.getVerTile((int) (y - height / 2));
-
-		// topLeft = map.getTile(layer, topTile, leftTile);
-		// topRight = map.getTile(layer, topTile, rightTile);
-		// bottomLeft = map.getTile(layer, bottonTile, leftTile);
-		// topLeft = map.getTile(layer, bottonTile, rightTile);
 
 	}
 

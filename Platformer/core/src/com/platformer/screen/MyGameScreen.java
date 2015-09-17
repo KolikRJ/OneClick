@@ -2,33 +2,20 @@ package com.platformer.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.platformer.debug.Debug;
-import com.platformer.maps.MyMap;
-import com.platformer.objects.Player;
+import com.platformer.maps.MyLoadMap;
 
-public class GameScreen implements Screen {
+public class MyGameScreen implements Screen {
 
 	// Класс экрана игры
 
 	// Загрузка карты
-	private MyMap map;
-
-	private Player player;
-
-	private Debug debug;
-
-	private byte tab = 0;
+	private MyLoadMap map;
 
 	// Конструктор класса
-	public GameScreen(SpriteBatch batch) {
-		map = new MyMap(batch, "level1.tmx");
-
-		player = new Player(map, batch);
-
-		debug = new Debug(map, player, map.getCamera());
+	public MyGameScreen(SpriteBatch batch) {
+		map = new MyLoadMap(batch, "level1.tmx");
 	}
 
 	// Используется когда вызывается данный экран
@@ -43,27 +30,6 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		map.render();
-		keyPressed();
-		
-		player.render(delta);
-		
-		if (debug.isDebug())
-			debug.render();
-	}
-
-	private void keyPressed() {
-		if (Gdx.input.isKeyJustPressed(Keys.TAB)) {
-			if (tab >= 1)
-				tab = 0;
-			else
-				tab++;
-		}
-		if (tab == 1) {
-			debug.setDebug(true);
-		} else {
-			debug.setDebug(false);
-		}
-
 	}
 
 	// Вызывается при растягивании экрана
@@ -90,7 +56,6 @@ public class GameScreen implements Screen {
 	@Override
 	public void dispose() {
 		map.dispose();
-		debug.dispose();
 	}
 
 }
