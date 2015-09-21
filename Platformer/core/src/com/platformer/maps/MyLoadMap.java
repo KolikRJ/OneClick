@@ -27,8 +27,8 @@ public class MyLoadMap {
 	}
 
 	// Рендринг карты
-	public void render() {
-		renderer.render();
+	public void render(float delta) {
+		renderer.render(delta);
 	}
 
 	// Выгружает используемые объекты

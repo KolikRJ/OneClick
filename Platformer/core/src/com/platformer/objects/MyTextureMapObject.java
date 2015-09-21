@@ -1,13 +1,15 @@
 package com.platformer.objects;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.platformer.maps.MyPropertiesObject;
 
-public class MyTextureObject extends MapObject {
+public class MyTextureMapObject {
 
 	private MyPropertiesObject prop;
 
+	private String name = "";
 	private float x = 0.0f;
 	private float y = 0.0f;
 	private float originX = 0.0f;
@@ -19,22 +21,33 @@ public class MyTextureObject extends MapObject {
 	private float rotation = 0.0f;
 	private TextureRegion textureRegion = null;
 
-	public MyTextureObject() {
-		this(null);
-	}
-
-	/**
-	 * Creates texture map object with the given region
-	 * 
-	 * @param textureRegion
-	 *            the {@link TextureRegion} to use.
-	 */
-	public MyTextureObject(TextureRegion textureRegion) {
-		super();
-		prop = new MyPropertiesObject(this);
+	public MyTextureMapObject(TextureMapObject object) {
+		prop = new MyPropertiesObject(object);
+		name = object.getName();
+		x = object.getX();
+		y = object.getY();
+		originX = object.getOriginX();
+		originY = object.getOriginY();
 		width = prop.getWidthObject();
 		height = prop.getHeightObject();
-		this.textureRegion = textureRegion;
+		scaleX = object.getScaleX();
+		scaleY = object.getScaleY();
+		rotation = object.getRotation();
+		textureRegion = object.getTextureRegion();
+	}
+
+	// Метод для отрисовки объекта
+	public void renderObject(SpriteBatch batch) {
+		batch.draw(textureRegion, x, y, originX, originY, width, height,
+				scaleX, scaleY, -rotation);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public float getWidth() {

@@ -29,7 +29,7 @@ public class MyGameScreen implements Screen {
 		Gdx.gl.glBlendColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		map.render();
+		map.render(delta);
 	}
 
 	// Вызывается при растягивании экрана

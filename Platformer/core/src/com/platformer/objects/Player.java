@@ -5,10 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.platformer.maps.MyPropertiesObject;
 
-public class Player {
-
-	private TextureMapObject player;
-	private MyPropertiesObject propObject;
+public class Player extends MyTextureMapObject {
 
 	private float x;
 	private float y;
@@ -36,12 +33,11 @@ public class Player {
 	private boolean jumping;
 	private boolean falling;
 
-	public Player() {
+	public Player(TextureMapObject object) {
+		super(object);
 
-		propObject = new MyPropertiesObject(player);
-
-		width = propObject.getWidthObject();
-		height = propObject.getHeightObject();
+		width = super.getWidth();
+		height = super.getHeight();
 
 		moveSpeed = 4.8f;
 		maxSpeed = 8.8f;
@@ -51,13 +47,13 @@ public class Player {
 
 		gravity = 10;
 
-		player.setY(player.getY() + height);
+		super.setY(super.getY() + height);
 
-		x = player.getX() + width / 2;
-		y = player.getY() + height / 2;
+		x = super.getX() + width / 2;
+		y = super.getY() + height / 2;
 
-		player.setX(x);
-		player.setY(y);
+		super.setX(x);
+		super.setY(y);
 
 	}
 
@@ -121,9 +117,9 @@ public class Player {
 
 		x += dx;
 		y += dy;
-		
-		player.setX(x);
-		player.setY(y);
+
+		super.setX(x);
+		super.setY(y);
 
 	}
 
@@ -158,6 +154,5 @@ public class Player {
 	public void setHeight(float height) {
 		this.height = height;
 	}
-	
 
 }
