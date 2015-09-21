@@ -3,7 +3,7 @@ package com.platformer.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
-import com.platformer.maps.MyPropertiesObject;
+import com.platformer.maps.MyPropertiesMap;
 
 public class Player extends MyTextureMapObject {
 
@@ -11,9 +11,6 @@ public class Player extends MyTextureMapObject {
 	private float y;
 	private float dx;
 	private float dy;
-
-	private float width;
-	private float height;
 
 	private float moveSpeed;
 	private float maxSpeed;
@@ -36,27 +33,20 @@ public class Player extends MyTextureMapObject {
 	public Player(TextureMapObject object) {
 		super(object);
 
-		width = super.getWidth();
-		height = super.getHeight();
-
 		moveSpeed = 4.8f;
 		maxSpeed = 8.8f;
 		stopSpeed = 25.8f;
 		maxFallSpeed = -8.2f;
-		jumpSpeed = 5f;
+		jumpSpeed = 5.3f;
 
 		gravity = 10;
 
-		super.setY(super.getY() + height);
-
-		x = super.getX() + width / 2;
-		y = super.getY() + height / 2;
-
-		super.setX(x);
-		super.setY(y);
-
+		x = getX();
+		y = getY();
+		
 	}
 
+	@Override
 	public void render(float delta) {
 		key();
 		move(delta);
@@ -115,44 +105,76 @@ public class Player extends MyTextureMapObject {
 			dy = 0;
 		}
 
-		x += dx;
-		y += dy;
+		int tileHor = MyPropertiesMap.GET_HOR_TILE(x);
+		int tileVer = MyPropertiesMap.GET_VER_TILE(y);
 
-		super.setX(x);
-		super.setY(y);
+		float tempx = x;
+		float tempy = y;
 
+		topLeft = isFree(MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) + getWidth() / 2));
+		topRight = isFree(MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) + getWidth() / 2));
+		bottomLeft = isFree(MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) - getWidth() / 2));
+		bottomRight = isFree(MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) - getWidth() / 2));
+
+		if (dy > 0) {
+			if (topLeft || topRight) {
+				dy = 0;
+				tempy = (tileVer) * MyPropertiesMap.GET_HEIGHT_TILE() + getHeight() / 2;
+			} else
+				tempy += dy;
+		}
+
+		if (dy < 0) {
+			if (bottomLeft || bottomRight) {
+				dy = 0;
+				falling = false;
+				tempy = (tileVer) * MyPropertiesMap.GET_HEIGHT_TILE() + getHeight() / 2;
+			} else
+				tempy += dy;
+		}
+
+		topLeft = isFree(MyPropertiesMap.GET_HOR_TILE((x + dx) - getWidth() / 2), MyPropertiesMap.GET_VER_TILE(y + getWidth() / 2));
+		topRight = isFree(MyPropertiesMap.GET_HOR_TILE((x + dx) + getWidth() / 2), MyPropertiesMap.GET_VER_TILE(y + getWidth() / 2));
+		bottomLeft = isFree(MyPropertiesMap.GET_HOR_TILE((x + dx) - getWidth() / 2), MyPropertiesMap.GET_VER_TILE(y - getWidth() / 2));
+		bottomRight = isFree(MyPropertiesMap.GET_HOR_TILE((x + dx) + getWidth() / 2), MyPropertiesMap.GET_VER_TILE(y - getWidth() / 2));
+
+		if (dx < 0) {
+			if (topLeft || bottomLeft) {
+				dx = 0;
+				tempx = (tileHor) * MyPropertiesMap.GET_WIDTH_TILE() + getWidth() / 2;
+			} else
+				tempx += dx;
+		}
+
+		if (dx > 0) {
+			if (topRight || bottomRight) {
+				dx = 0;
+				tempx = (tileHor) * MyPropertiesMap.GET_WIDTH_TILE() + getWidth() / 2;
+				System.out.println(tempx);
+			} else
+				tempx += dx;
+		}
+		
+		topLeft = isFree(MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) + getWidth() / 2) - 1);
+		topRight = isFree(MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) + getWidth() / 2) - 1);
+		bottomLeft = isFree(MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) - getWidth() / 2) - 1);
+		bottomRight = isFree(MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) - getWidth() / 2) - 1);
+
+		if (!falling)
+			if (!bottomLeft && !bottomRight)
+				falling = true;
+
+		x = tempx;
+		y = tempy;
+
+		setX(x);
+		setY(y);
 	}
 
-	public float getX() {
-		return x - width / 2;
+	public boolean isFree(int hor, int ver) {
+		if (MyPropertiesMap.GET_TILE(hor, ver) != null)
+			return true;
+		else
+			return false;
 	}
-
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	public float getY() {
-		return y - height / 2;
-	}
-
-	public void setY(float y) {
-		this.y = y;
-	}
-
-	public float getWidth() {
-		return width;
-	}
-
-	public void setWidth(float width) {
-		this.width = width;
-	}
-
-	public float getHeight() {
-		return height;
-	}
-
-	public void setHeight(float height) {
-		this.height = height;
-	}
-
 }
