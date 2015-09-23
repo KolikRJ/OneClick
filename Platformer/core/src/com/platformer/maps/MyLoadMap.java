@@ -4,36 +4,52 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
-//Класс для загрузки карт
-
+/**
+ * 
+ * @author KolikRJ
+ * @brief Класс для загрузки карт.
+ */
 public class MyLoadMap {
 
-	// Создали переменную
+	// Класс карт
 	private TiledMap map;
 
 	// Класс для рендринга
-	private MyRenderer renderer;
+	private MyRendererMap renderer;
 
-	// Загрузка карт
+	/**
+	 * @param batch
+	 * @param path
+	 */
 	public MyLoadMap(SpriteBatch batch, String path) {
+		// Загрузка файла карты
 		map = new TmxMapLoader().load(path);
-		renderer = new MyRenderer(map, batch);
-		MyPropertiesMap.loadMapProperties(map);
+		// Задали карту для статического класса свойств карты
+		MyPropertiesMap.LOAD_MAP_PROPERTIES(map);
+		// Рендринг карты
+		renderer = new MyRendererMap(map, batch);
 	}
 
-	// Возвращает карту
+	/**
+	 * 
+	 * @return Возвращает загруженную карту.
+	 */
 	public TiledMap getMap() {
 		return map;
 	}
 
-	// Рендринг карты
+	/**
+	 * @brief Рендринг карты.
+	 * @param delta
+	 */
 	public void render(float delta) {
 		renderer.render(delta);
 	}
 
-	// Выгружает используемые объекты
+	/**
+	 * @brief Выгружает используемые объекты.
+	 */
 	public void dispose() {
-		renderer.dispose();
 		map.dispose();
 	}
 

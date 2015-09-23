@@ -3,11 +3,19 @@ package com.platformer.objects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
+import com.platformer.maps.MyPropertiesMap;
 import com.platformer.maps.MyPropertiesObject;
 
-public class MyTextureMapObject {
+/**
+ * 
+ * @author KolikRJ
+ * @brief Класс текстурных объектов.
+ */
+public abstract class MyTextureMapObject {
 
 	private MyPropertiesObject prop;
+
+	private static int INDEX = 0;
 
 	private String name = "";
 	private float x = 0.0f;
@@ -16,64 +24,116 @@ public class MyTextureMapObject {
 	private float originY = 0.0f;
 	private float width = 0.0f;
 	private float height = 0.0f;
-	private float scaleX = 1.0f;
-	private float scaleY = 1.0f;
+	private float scaleX = 0.0f;
+	private float scaleY = 0.0f;
 	private float rotation = 0.0f;
 	private TextureRegion textureRegion = null;
 
-	public MyTextureMapObject(TextureMapObject object) {
+	/**
+	 * 
+	 * @param object
+	 */
+	public MyTextureMapObject() {
+
+		TextureMapObject object = (TextureMapObject) MyPropertiesMap.GET_OBJECTS().get(INDEX);
+
 		prop = new MyPropertiesObject(object);
 		name = object.getName();
-		x = object.getX();
-		y = object.getY();
 		originX = object.getOriginX();
 		originY = object.getOriginY();
 		width = prop.getWidthObject();
 		height = prop.getHeightObject();
+		x = object.getX() + height / 2;
+		y = object.getY() + (height + (height / 2));
 		scaleX = object.getScaleX();
 		scaleY = object.getScaleY();
 		rotation = object.getRotation();
 		textureRegion = object.getTextureRegion();
 	}
 
-	// Метод для отрисовки объекта
-	public void renderObject(SpriteBatch batch) {
-		batch.draw(textureRegion, x, y, originX, originY, width, height,
-				scaleX, scaleY, -rotation);
+	public static int getIndex() {
+		return INDEX;
 	}
 
+	public static void setIndex() {
+		INDEX++;
+	}
+
+	/**
+	 * @brief Абстрактный метод для рендринга дочерних объектов
+	 * @param delta
+	 */
+	public abstract void render(float delta);
+
+	/**
+	 * @brief Метод для отрисовки объектов
+	 * @param batch
+	 * @param delta
+	 */
+	public void renderObject(SpriteBatch batch, float delta) {
+		render(delta);
+		batch.draw(textureRegion, x - height / 2, y - height / 2, originX, originY, width, height, scaleX, scaleY, -rotation);
+	}
+
+	/**
+	 * 
+	 * @return Возвращает имя объекта
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @brief Устанавить имя объекта
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * 
+	 * @return Возвращает ширину
+	 */
 	public float getWidth() {
 		return width;
 	}
 
+	/**
+	 * @brief Устанавить ширину
+	 * @param width
+	 */
 	public void setWidth(float width) {
 		this.width = width;
 	}
 
+	/**
+	 * 
+	 * @return Вовращает высоту
+	 */
 	public float getHeight() {
 		return height;
 	}
 
+	/**
+	 * @brief Установить высоту
+	 * @param height
+	 */
 	public void setHeight(float height) {
 		this.height = height;
 	}
 
-	/** @return x axis coordinate */
+	/**
+	 * 
+	 * @return Возвращает x
+	 */
 	public float getX() {
 		return x;
 	}
 
 	/**
+	 * @Brief установить x
 	 * @param x
-	 *            new x axis coordinate
 	 */
 	public void setX(float x) {
 		this.x = x;
@@ -81,7 +141,7 @@ public class MyTextureMapObject {
 
 	/** @return y axis coordinate */
 	public float getY() {
-		return y + height;
+		return y;
 	}
 
 	/**

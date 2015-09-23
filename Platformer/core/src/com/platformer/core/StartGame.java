@@ -7,6 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.platformer.screen.MyGameScreen;
 import com.platformer.screen.MyMenuScreen;
 
+/**
+ * 
+ * @author KolikRJ
+ *
+ */
 public class StartGame extends Game implements ApplicationListener {
 
 	SpriteBatch batch;
@@ -23,7 +28,7 @@ public class StartGame extends Game implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {
-
+		getScreen().resize(width, height);
 	}
 
 	@Override
@@ -36,21 +41,24 @@ public class StartGame extends Game implements ApplicationListener {
 			else
 				setScreen(gameScreen);
 
-	//	System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
+		// System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
 
 	}
 
 	@Override
 	public void pause() {
+		getScreen().pause();
 	}
 
 	@Override
 	public void resume() {
+		getScreen().resume();
 	}
 
 	@Override
 	public void dispose() {
 		menuScreen.dispose();
 		gameScreen.dispose();
+		batch.dispose();
 	}
 }

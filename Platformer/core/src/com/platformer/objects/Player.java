@@ -2,7 +2,6 @@ package com.platformer.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.platformer.maps.MyPropertiesMap;
 
 public class Player extends MyTextureMapObject {
@@ -30,8 +29,7 @@ public class Player extends MyTextureMapObject {
 	private boolean jumping;
 	private boolean falling;
 
-	public Player(TextureMapObject object) {
-		super(object);
+	public Player() {
 
 		moveSpeed = 4.8f;
 		maxSpeed = 8.8f;
@@ -43,7 +41,7 @@ public class Player extends MyTextureMapObject {
 
 		x = getX();
 		y = getY();
-		
+
 	}
 
 	@Override
@@ -150,11 +148,10 @@ public class Player extends MyTextureMapObject {
 			if (topRight || bottomRight) {
 				dx = 0;
 				tempx = (tileHor) * MyPropertiesMap.GET_WIDTH_TILE() + getWidth() / 2;
-				System.out.println(tempx);
 			} else
 				tempx += dx;
 		}
-		
+
 		topLeft = isFree(MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) + getWidth() / 2) - 1);
 		topRight = isFree(MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) + getWidth() / 2) - 1);
 		bottomLeft = isFree(MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) - getWidth() / 2) - 1);
