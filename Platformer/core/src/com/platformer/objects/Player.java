@@ -29,6 +29,11 @@ public class Player extends MyTextureMapObject {
 	private boolean jumping;
 	private boolean falling;
 
+	private int leftTile;
+	private int rightTile;
+	private int topTile;
+	private int bottomTile;
+
 	public Player() {
 
 		moveSpeed = 4.8f;
@@ -103,21 +108,21 @@ public class Player extends MyTextureMapObject {
 			dy = 0;
 		}
 
-		int tileHor = MyPropertiesMap.GET_HOR_TILE(x);
-		int tileVer = MyPropertiesMap.GET_VER_TILE(y);
+		float tox = x + dx;
+		float toy = y + dy;
+		
+		int horTile = MyPropertiesMap.GET_HOR_TILE(x);
+		int verTile = MyPropertiesMap.GET_VER_TILE(y);
 
 		float tempx = x;
 		float tempy = y;
 
-		topLeft = isFree(MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) + getWidth() / 2));
-		topRight = isFree(MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) + getWidth() / 2));
-		bottomLeft = isFree(MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) - getWidth() / 2));
-		bottomRight = isFree(MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) - getWidth() / 2));
+		calculateCorners(x, toy);
 
 		if (dy > 0) {
 			if (topLeft || topRight) {
 				dy = 0;
-				tempy = (tileVer) * MyPropertiesMap.GET_HEIGHT_TILE() + getHeight() / 2;
+				tempy = (verTile) * MyPropertiesMap.GET_HEIGHT_TILE() - getHeight() / 2;
 			} else
 				tempy += dy;
 		}
@@ -126,20 +131,17 @@ public class Player extends MyTextureMapObject {
 			if (bottomLeft || bottomRight) {
 				dy = 0;
 				falling = false;
-				tempy = (tileVer) * MyPropertiesMap.GET_HEIGHT_TILE() + getHeight() / 2;
+				tempy = (verTile) * MyPropertiesMap.GET_HEIGHT_TILE() - getHeight() / 2;
 			} else
 				tempy += dy;
 		}
 
-		topLeft = isFree(MyPropertiesMap.GET_HOR_TILE((x + dx) - getWidth() / 2), MyPropertiesMap.GET_VER_TILE(y + getWidth() / 2));
-		topRight = isFree(MyPropertiesMap.GET_HOR_TILE((x + dx) + getWidth() / 2), MyPropertiesMap.GET_VER_TILE(y + getWidth() / 2));
-		bottomLeft = isFree(MyPropertiesMap.GET_HOR_TILE((x + dx) - getWidth() / 2), MyPropertiesMap.GET_VER_TILE(y - getWidth() / 2));
-		bottomRight = isFree(MyPropertiesMap.GET_HOR_TILE((x + dx) + getWidth() / 2), MyPropertiesMap.GET_VER_TILE(y - getWidth() / 2));
+		calculateCorners(tox, y);
 
 		if (dx < 0) {
 			if (topLeft || bottomLeft) {
 				dx = 0;
-				tempx = (tileHor) * MyPropertiesMap.GET_WIDTH_TILE() + getWidth() / 2;
+				tempx = (horTile) * MyPropertiesMap.GET_WIDTH_TILE() + getWidth() / 2;
 			} else
 				tempx += dx;
 		}
@@ -147,15 +149,12 @@ public class Player extends MyTextureMapObject {
 		if (dx > 0) {
 			if (topRight || bottomRight) {
 				dx = 0;
-				tempx = (tileHor) * MyPropertiesMap.GET_WIDTH_TILE() + getWidth() / 2;
+				tempx = (horTile) * MyPropertiesMap.GET_WIDTH_TILE() - getWidth() / 2;
 			} else
 				tempx += dx;
 		}
 
-		topLeft = isFree(MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) + getWidth() / 2) - 1);
-		topRight = isFree(MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) + getWidth() / 2) - 1);
-		bottomLeft = isFree(MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) - getWidth() / 2) - 1);
-		bottomRight = isFree(MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2), MyPropertiesMap.GET_VER_TILE((y + dy) - getWidth() / 2) - 1);
+		calculateCorners(x, y - 1);
 
 		if (!falling)
 			if (!bottomLeft && !bottomRight)
@@ -168,10 +167,15 @@ public class Player extends MyTextureMapObject {
 		setY(y);
 	}
 
-	public boolean isFree(int hor, int ver) {
-		if (MyPropertiesMap.GET_TILE(hor, ver) != null)
-			return true;
-		else
-			return false;
+	public void calculateCorners(float x, float y) {
+		leftTile = MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2);
+		rightTile = MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2) - 1;
+		topTile = MyPropertiesMap.GET_VER_TILE(y + getHeight() / 2);
+		bottomTile = MyPropertiesMap.GET_VER_TILE(y - getHeight() / 2) - 1;
+
+		topLeft = MyPropertiesMap.GET_TILE(leftTile, topTile) != null;
+		topRight = MyPropertiesMap.GET_TILE(rightTile, topTile) != null;
+		bottomLeft = MyPropertiesMap.GET_TILE(leftTile, bottomTile) != null;
+		bottomRight = MyPropertiesMap.GET_TILE(rightTile, bottomTile) != null;
 	}
 }

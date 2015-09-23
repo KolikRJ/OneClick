@@ -15,7 +15,7 @@ public abstract class MyTextureMapObject {
 
 	private MyPropertiesObject prop;
 
-	private static int INDEX = 0;
+	private static int index = 0;
 
 	private String name = "";
 	private float x = 0.0f;
@@ -35,7 +35,7 @@ public abstract class MyTextureMapObject {
 	 */
 	public MyTextureMapObject() {
 
-		TextureMapObject object = (TextureMapObject) MyPropertiesMap.GET_OBJECTS().get(INDEX);
+		TextureMapObject object = (TextureMapObject) MyPropertiesMap.GET_OBJECTS().get(index);
 
 		prop = new MyPropertiesObject(object);
 		name = object.getName();
@@ -52,11 +52,11 @@ public abstract class MyTextureMapObject {
 	}
 
 	public static int getIndex() {
-		return INDEX;
+		return index;
 	}
 
 	public static void setIndex() {
-		INDEX++;
+		index++;
 	}
 
 	/**
