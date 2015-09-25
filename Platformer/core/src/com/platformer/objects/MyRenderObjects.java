@@ -4,15 +4,30 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.platformer.maps.MyPropertiesMap;
 
+/**
+ * 
+ * @author KolikRJ Класс рендринга объектов.
+ */
 public class MyRenderObjects {
 
 	private SpriteBatch batch;
 	private MyMapObjects myObjects;
 
+	/**
+	 * 
+	 * @param batch
+	 */
 	public MyRenderObjects(SpriteBatch batch) {
 		this.batch = batch;
 		myObjects = new MyMapObjects();
 
+		/*
+		 * Бегаем по объектам, узнаем имя каждого объекта, если имя NULL, то
+		 * выводим ошибку. Если имя не NULL, то создаем пустой объект по данному
+		 * имени, ищем данный класс в объектах, если класса нет, то выводим
+		 * ошибку, иначе вызываем его и преобразовываем в класс текстурных
+		 * объектов.
+		 */
 		for (MapObject object : MyPropertiesMap.GET_OBJECTS()) {
 			String name = object.getName();
 			if (name != null) {
@@ -32,6 +47,11 @@ public class MyRenderObjects {
 		}
 	}
 
+	/**
+	 * 
+	 * @param delta
+	 *            Рендринг всех объектов.
+	 */
 	public void render(float delta) {
 		batch.begin();
 		for (MyTextureMapObject object : myObjects)

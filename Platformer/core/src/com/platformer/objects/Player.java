@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.platformer.maps.MyPropertiesMap;
 
+/**
+ * 
+ * @author KolikRJ Класс главного игрока.
+ */
 public class Player extends MyTextureMapObject {
 
 	private float x;
@@ -110,7 +114,7 @@ public class Player extends MyTextureMapObject {
 
 		float tox = x + dx;
 		float toy = y + dy;
-		
+
 		int horTile = MyPropertiesMap.GET_HOR_TILE(x);
 		int verTile = MyPropertiesMap.GET_VER_TILE(y);
 

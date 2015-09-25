@@ -51,22 +51,29 @@ public abstract class MyTextureMapObject {
 		textureRegion = object.getTextureRegion();
 	}
 
+	/**
+	 * 
+	 * @return индекс объектов в массиве объектов карты.
+	 */
 	public static int getIndex() {
 		return index;
 	}
 
+	/**
+	 * Прибавляет 1 к индексу объектов массиве объектов карты.
+	 */
 	public static void setIndex() {
 		index++;
 	}
 
 	/**
-	 * @brief Абстрактный метод для рендринга дочерних объектов
+	 * @brief Абстрактный метод для рендринга дочерних объектов.
 	 * @param delta
 	 */
 	public abstract void render(float delta);
 
 	/**
-	 * @brief Метод для отрисовки объектов
+	 * @brief Метод для отрисовки объектов.
 	 * @param batch
 	 * @param delta
 	 */
@@ -77,14 +84,14 @@ public abstract class MyTextureMapObject {
 
 	/**
 	 * 
-	 * @return Возвращает имя объекта
+	 * @return Возвращает имя объекта.
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * @brief Устанавить имя объекта
+	 * @brief Устанавить имя объекта.
 	 * @param name
 	 */
 	public void setName(String name) {
@@ -93,14 +100,14 @@ public abstract class MyTextureMapObject {
 
 	/**
 	 * 
-	 * @return Возвращает ширину
+	 * @return Возвращает ширину.
 	 */
 	public float getWidth() {
 		return width;
 	}
 
 	/**
-	 * @brief Устанавить ширину
+	 * @brief Устанавить ширину.
 	 * @param width
 	 */
 	public void setWidth(float width) {
@@ -109,14 +116,14 @@ public abstract class MyTextureMapObject {
 
 	/**
 	 * 
-	 * @return Вовращает высоту
+	 * @return Вовращает высоту.
 	 */
 	public float getHeight() {
 		return height;
 	}
 
 	/**
-	 * @brief Установить высоту
+	 * @brief Установить высоту.
 	 * @param height
 	 */
 	public void setHeight(float height) {
@@ -125,106 +132,109 @@ public abstract class MyTextureMapObject {
 
 	/**
 	 * 
-	 * @return Возвращает x
+	 * @return Возвращает x.
 	 */
 	public float getX() {
 		return x;
 	}
 
 	/**
-	 * @Brief установить x
+	 * @Brief установить x.
 	 * @param x
 	 */
 	public void setX(float x) {
 		this.x = x;
 	}
 
-	/** @return y axis coordinate */
+	/**
+	 * @return Возвращает y.
+	 *
+	 */
 	public float getY() {
 		return y;
 	}
 
 	/**
 	 * @param y
-	 *            new y axis coordinate
+	 *            Установить y.
 	 */
 	public void setY(float y) {
 		this.y = y;
 	}
 
-	/** @return x axis origin */
+	/** @return Возващает X центра. */
 	public float getOriginX() {
 		return originX;
 	}
 
 	/**
 	 * @param x
-	 *            new x axis origin
+	 *            Установить X центра.
 	 */
 	public void setOriginX(float x) {
 		this.originX = x;
 	}
 
-	/** @return y axis origin */
+	/** @return Возващает Y центра. */
 	public float getOriginY() {
 		return originY;
 	}
 
 	/**
 	 * @param y
-	 *            new axis origin
+	 *            Установить Y центра.
 	 */
 	public void setOriginY(float y) {
 		this.originY = y;
 	}
 
-	/** @return x axis scale */
+	/** @return Возвращает маштаб по X. */
 	public float getScaleX() {
 		return scaleX;
 	}
 
 	/**
 	 * @param x
-	 *            new x axis scale
+	 *            Установить маштаб по X.
 	 */
 	public void setScaleX(float x) {
 		this.scaleX = x;
 	}
 
-	/** @return y axis scale */
+	/** @return Возвращает маштаб по Y. */
 	public float getScaleY() {
 		return scaleY;
 	}
 
 	/**
 	 * @param y
-	 *            new y axis scale
+	 *            Установить маштаб по Y.
 	 */
 	public void setScaleY(float y) {
 		this.scaleY = y;
 	}
 
-	/** @return texture's rotation in radians */
+	/** @return Возвращает угол поворота текстуры в радианах. */
 	public float getRotation() {
 		return rotation;
 	}
 
 	/**
 	 * @param rotation
-	 *            new texture's rotation in radians
+	 *            Устанавливает угол поворота текстуры в радианах.
 	 */
 	public void setRotation(float rotation) {
 		this.rotation = rotation;
 	}
 
-	/** @return region */
+	/** @return Регион текстуры. */
 	public TextureRegion getTextureRegion() {
 		return textureRegion;
 	}
 
 	/**
 	 * @param region
-	 *            new texture region
+	 *            Устанавливает Регион текстуры.
 	 */
 	public void setTextureRegion(TextureRegion region) {
 		textureRegion = region;

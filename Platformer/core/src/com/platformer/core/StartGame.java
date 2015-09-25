@@ -9,8 +9,7 @@ import com.platformer.screen.MyMenuScreen;
 
 /**
  * 
- * @author KolikRJ
- *
+ * @author KolikRJ Основной класс игры.
  */
 public class StartGame extends Game implements ApplicationListener {
 
@@ -18,6 +17,9 @@ public class StartGame extends Game implements ApplicationListener {
 	MyMenuScreen menuScreen;
 	MyGameScreen gameScreen;
 
+	/**
+	 * Вызывается при запуске игры.
+	 */
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
@@ -26,11 +28,17 @@ public class StartGame extends Game implements ApplicationListener {
 		setScreen(menuScreen);
 	}
 
+	/**
+	 * Вызывается при расстягивании экрана.
+	 */
 	@Override
 	public void resize(int width, int height) {
 		getScreen().resize(width, height);
 	}
 
+	/**
+	 * Основной рендер игры, в нем указываюся когда какие экраны вызывать.
+	 */
 	@Override
 	public void render() {
 		getScreen().render(Gdx.graphics.getDeltaTime());
@@ -45,16 +53,25 @@ public class StartGame extends Game implements ApplicationListener {
 
 	}
 
+	/**
+	 * Вызывается когда игра свернута, или появился входящий звонок.
+	 */
 	@Override
 	public void pause() {
 		getScreen().pause();
 	}
 
+	/**
+	 * Вызывается когда игра была развернута.
+	 */
 	@Override
 	public void resume() {
 		getScreen().resume();
 	}
 
+	/**
+	 * Выгружает используемые объекты.
+	 */
 	@Override
 	public void dispose() {
 		menuScreen.dispose();

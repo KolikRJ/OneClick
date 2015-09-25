@@ -7,18 +7,24 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.platformer.objects.MyRenderObjects;
 
+/**
+ * 
+ * @author KolikRJ Класс рендринга карты.
+ */
 public class MyRendererMap {
 
-	// Создание класса для рендринга карты
 	private TiledMapRenderer mapRenderer;
 
 	private MyRenderObjects renderObjects;
-	// Отрисовщик спрайтов
 	private SpriteBatch batch;
-	// Создание камеры
 	private MyCamera camera;
 
-	// Загрузка карты для рендринга
+	/**
+	 * 
+	 * @param map
+	 * @param batch
+	 *            Загрузка карты для рендринга.
+	 */
 	public MyRendererMap(TiledMap map, SpriteBatch batch) {
 		this.batch = batch;
 		mapRenderer = new OrthogonalTiledMapRenderer(map, batch);
@@ -27,7 +33,11 @@ public class MyRendererMap {
 		renderObjects = new MyRenderObjects(batch);
 	}
 
-	// Рендринг карты
+	/**
+	 * 
+	 * @param delta
+	 *            Рендер карты и объектов.
+	 */
 	public void render(float delta) {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
@@ -36,6 +46,10 @@ public class MyRendererMap {
 		renderObjects.render(delta);
 	}
 
+	/**
+	 * 
+	 * @return Возващает камеру.
+	 */
 	public MyCamera getCamera() {
 		return camera;
 	}

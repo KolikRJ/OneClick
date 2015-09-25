@@ -3,33 +3,51 @@ package com.platformer.maps;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 
+/**
+ * 
+ * @author KolikRJ Класс свойств объекта.
+ */
 public class MyPropertiesObject {
-
-	// Класс свойств объекта
 
 	private MapProperties prop;
 
-	//Загрузка объекта
+	/**
+	 * 
+	 * @param object
+	 *            Загрузка объекта.
+	 */
 	public MyPropertiesObject(MapObject object) {
 		prop = object.getProperties();
 	}
 
-	//Ширина объекта
+	/**
+	 * 
+	 * @return Возващает ширину объекта.
+	 */
 	public float getWidthObject() {
 		return prop.get("width", Float.class);
 	}
 
-	//Высота объекта
+	/**
+	 * 
+	 * @return Возващает высоту объекта.
+	 */
 	public float getHeightObject() {
 		return prop.get("height", Float.class);
 	}
 
-	// Х координата объекта
+	/**
+	 * 
+	 * @return Возващает x Координату объекта.
+	 */
 	public float getXObject() {
 		return prop.get("x", Float.class);
 	}
 
-	// Y координата объекта
+	/**
+	 * 
+	 * @return Возващает y координату объекта.
+	 */
 	public float getYObject() {
 		return prop.get("y", Float.class);
 	}
