@@ -9,7 +9,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 /**
  * 
- * @author KolikRJ Класс свойств загруженной карты.
+ * @author KolikRJ
+ * @brief Класс свойств загруженной карты.
  */
 public class MyPropertiesMap {
 

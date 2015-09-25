@@ -5,7 +5,8 @@ import com.badlogic.gdx.maps.MapProperties;
 
 /**
  * 
- * @author KolikRJ Класс свойств объекта.
+ * @author KolikRJ
+ * @brief Класс свыойств объекта.
  */
 public class MyPropertiesObject {
 

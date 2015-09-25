@@ -1,9 +1,9 @@
 package com.platformer.debug;
 
-
 /**
  * 
- * @author KolikRJ ’уевый класс.
+ * @author KolikRJ
+ * @brief ’уевый класс.
  */
 public class Debug {
 	//

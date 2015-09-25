@@ -9,7 +9,8 @@ import com.platformer.objects.MyRenderObjects;
 
 /**
  * 
- * @author KolikRJ Класс рендринга карты.
+ * @author KolikRJ
+ * @brief Класс рендринга карты.
  */
 public class MyRendererMap {
 

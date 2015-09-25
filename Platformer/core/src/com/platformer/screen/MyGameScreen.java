@@ -8,7 +8,8 @@ import com.platformer.maps.MyLoadMap;
 
 /**
  * 
- * @author KolikRJ Класс экрана игры.
+ * @author KolikRJ
+ * @brief Класс экрана игры.
  */
 public class MyGameScreen implements Screen {
 

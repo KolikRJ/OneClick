@@ -6,7 +6,8 @@ import com.platformer.maps.MyPropertiesMap;
 
 /**
  * 
- * @author KolikRJ Класс рендринга объектов.
+ * @author KolikRJ
+ * @brief Класс рендринга объектов.
  */
 public class MyRenderObjects {
 

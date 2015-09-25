@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 
 /**
  * 
- * @author KolikRJ Класс начального экрана.
+ * @author KolikRJ
+ * @brief Класс начального экрана.
  */
 public class MyMenuScreen implements Screen {
 

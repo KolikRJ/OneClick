@@ -6,7 +6,8 @@ import com.badlogic.gdx.utils.Array;
 
 /**
  * 
- * @author KolikRJ Класс содержащий массив текстурных объектов.
+ * @author KolikRJ
+ * @brief Класс содержащий массив текстурных объектов.
  */
 public class MyMapObjects implements Iterable<MyTextureMapObject> {
 

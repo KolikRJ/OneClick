@@ -9,7 +9,8 @@ import com.platformer.screen.MyMenuScreen;
 
 /**
  * 
- * @author KolikRJ Основной класс игры.
+ * @author KolikRJ
+ * @brief Основной класс игры.
  */
 public class StartGame extends Game implements ApplicationListener {
 
@@ -54,7 +55,7 @@ public class StartGame extends Game implements ApplicationListener {
 	}
 
 	/**
-	 * Вызывается когда игра свернута, или появился входящий звонок.
+	 * Вызывается когда игра свернута, или входящий звонок.
 	 */
 	@Override
 	public void pause() {

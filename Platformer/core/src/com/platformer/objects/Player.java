@@ -6,7 +6,8 @@ import com.platformer.maps.MyPropertiesMap;
 
 /**
  * 
- * @author KolikRJ Класс главного игрока.
+ * @author KolikRJ
+ * @brief Класс главного игрока.
  */
 public class Player extends MyTextureMapObject {
 
