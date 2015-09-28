@@ -45,9 +45,9 @@ public class Player extends MyTextureMapObject {
 		maxSpeed = 8.8f;
 		stopSpeed = 25.8f;
 		maxFallSpeed = -8.2f;
-		jumpSpeed = 5.3f;
+		jumpSpeed = 5f;
 
-		gravity = 10;
+		gravity = 20;
 
 		x = getX();
 		y = getY();
@@ -162,10 +162,13 @@ public class Player extends MyTextureMapObject {
 			if (!bottomLeft && !bottomRight)
 				falling = true;
 
-		if (tileId == 35 || tileId == 34 || tileId == 36)
+		if (tileId == 35 || tileId == 34 || tileId == 36) {
 			stopSpeed = 2f;
-		else
+			maxSpeed = 12.2f;
+		} else {
 			stopSpeed = 25.8f;
+			maxSpeed = 8.8f;
+		}
 
 		x = tempx;
 		y = tempy;
