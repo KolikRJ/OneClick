@@ -43,7 +43,7 @@ public abstract class MyTextureMapObject {
 		originY = object.getOriginY();
 		width = prop.getWidthObject();
 		height = prop.getHeightObject();
-		x = object.getX() + height / 2;
+		x = object.getX() + width / 2;
 		y = object.getY() + (height + (height / 2));
 		scaleX = object.getScaleX();
 		scaleY = object.getScaleY();
@@ -79,7 +79,7 @@ public abstract class MyTextureMapObject {
 	 */
 	public void renderObject(SpriteBatch batch, float delta) {
 		render(delta);
-		batch.draw(textureRegion, x - height / 2, y - height / 2, originX, originY, width, height, scaleX, scaleY, -rotation);
+		batch.draw(textureRegion, x - width / 2, y - height / 2, originX, originY, width, height, scaleX, scaleY, -rotation);
 	}
 
 	/**

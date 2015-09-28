@@ -34,10 +34,10 @@ public class Player extends MyTextureMapObject {
 	private boolean jumping;
 	private boolean falling;
 
-	private int leftTile;
-	private int rightTile;
-	private int topTile;
-	private int bottomTile;
+	private int horTile;
+	private int verTile;
+
+	private int tileId;
 
 	public Player() {
 
@@ -116,9 +116,6 @@ public class Player extends MyTextureMapObject {
 		float tox = x + dx;
 		float toy = y + dy;
 
-		int horTile = MyPropertiesMap.GET_HOR_TILE(x);
-		int verTile = MyPropertiesMap.GET_VER_TILE(y);
-
 		float tempx = x;
 		float tempy = y;
 
@@ -127,7 +124,7 @@ public class Player extends MyTextureMapObject {
 		if (dy > 0) {
 			if (topLeft || topRight) {
 				dy = 0;
-				tempy = (verTile) * MyPropertiesMap.GET_HEIGHT_TILE() - getHeight() / 2;
+				tempy = (verTile) * MyPropertiesMap.GET_HEIGHT_TILE() - (getHeight() / 2) - 0.1f;
 			} else
 				tempy += dy;
 		}
@@ -136,7 +133,7 @@ public class Player extends MyTextureMapObject {
 			if (bottomLeft || bottomRight) {
 				dy = 0;
 				falling = false;
-				tempy = (verTile) * MyPropertiesMap.GET_HEIGHT_TILE() - getHeight() / 2;
+				tempy = (verTile) * MyPropertiesMap.GET_HEIGHT_TILE() + MyPropertiesMap.GET_HEIGHT_TILE() + getHeight() / 2;
 			} else
 				tempy += dy;
 		}
@@ -146,7 +143,7 @@ public class Player extends MyTextureMapObject {
 		if (dx < 0) {
 			if (topLeft || bottomLeft) {
 				dx = 0;
-				tempx = (horTile) * MyPropertiesMap.GET_WIDTH_TILE() + getWidth() / 2;
+				tempx = (horTile) * MyPropertiesMap.GET_WIDTH_TILE() + MyPropertiesMap.GET_WIDTH_TILE() + getWidth() / 2;
 			} else
 				tempx += dx;
 		}
@@ -154,7 +151,7 @@ public class Player extends MyTextureMapObject {
 		if (dx > 0) {
 			if (topRight || bottomRight) {
 				dx = 0;
-				tempx = (horTile) * MyPropertiesMap.GET_WIDTH_TILE() - getWidth() / 2;
+				tempx = (horTile) * MyPropertiesMap.GET_WIDTH_TILE() - (getWidth() / 2) - 0.1f;
 			} else
 				tempx += dx;
 		}
@@ -165,6 +162,11 @@ public class Player extends MyTextureMapObject {
 			if (!bottomLeft && !bottomRight)
 				falling = true;
 
+		if (tileId == 35 || tileId == 34 || tileId == 36)
+			stopSpeed = 2f;
+		else
+			stopSpeed = 25.8f;
+
 		x = tempx;
 		y = tempy;
 
@@ -173,14 +175,25 @@ public class Player extends MyTextureMapObject {
 	}
 
 	public void calculateCorners(float x, float y) {
-		leftTile = MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2);
-		rightTile = MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2) - 1;
-		topTile = MyPropertiesMap.GET_VER_TILE(y + getHeight() / 2);
-		bottomTile = MyPropertiesMap.GET_VER_TILE(y - getHeight() / 2) - 1;
+		topLeft = MyPropertiesMap.GET_TILE(MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2), MyPropertiesMap.GET_VER_TILE(y + getHeight() / 2)) != null;
+		topRight = MyPropertiesMap.GET_TILE(MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2), MyPropertiesMap.GET_VER_TILE(y + getHeight() / 2)) != null;
+		bottomLeft = MyPropertiesMap.GET_TILE(MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2), MyPropertiesMap.GET_VER_TILE(y - getHeight() / 2)) != null;
+		bottomRight = MyPropertiesMap.GET_TILE(MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2), MyPropertiesMap.GET_VER_TILE(y - getHeight() / 2)) != null;
 
-		topLeft = MyPropertiesMap.GET_TILE(leftTile, topTile) != null;
-		topRight = MyPropertiesMap.GET_TILE(rightTile, topTile) != null;
-		bottomLeft = MyPropertiesMap.GET_TILE(leftTile, bottomTile) != null;
-		bottomRight = MyPropertiesMap.GET_TILE(rightTile, bottomTile) != null;
+		if (bottomLeft && bottomRight) {
+			tileId = MyPropertiesMap.GET_TILE(MyPropertiesMap.GET_HOR_TILE(x), MyPropertiesMap.GET_VER_TILE(y - getHeight() / 2)).getTile().getId();
+		}
+
+		if (topLeft || bottomLeft)
+			horTile = MyPropertiesMap.GET_HOR_TILE(x - getWidth() / 2);
+
+		if (topRight || bottomRight)
+			horTile = MyPropertiesMap.GET_HOR_TILE(x + getWidth() / 2);
+
+		if (topLeft || topRight)
+			verTile = MyPropertiesMap.GET_VER_TILE(y + getHeight() / 2);
+
+		if (bottomLeft || bottomRight)
+			verTile = MyPropertiesMap.GET_VER_TILE(y - getHeight() / 2);
 	}
 }
