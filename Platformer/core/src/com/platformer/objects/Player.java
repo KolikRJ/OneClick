@@ -45,7 +45,7 @@ public class Player extends MyTextureMapObject {
 		maxSpeed = 8.8f;
 		stopSpeed = 25.8f;
 		maxFallSpeed = -8.2f;
-		jumpSpeed = 5f;
+		jumpSpeed = 5.5f;
 
 		gravity = 20;
 
@@ -73,7 +73,6 @@ public class Player extends MyTextureMapObject {
 
 		if (Gdx.input.isKeyJustPressed(Keys.UP) && !falling)
 			jumping = true;
-
 	}
 
 	private void move(float delta) {
@@ -168,6 +167,10 @@ public class Player extends MyTextureMapObject {
 		} else {
 			stopSpeed = 25.8f;
 			maxSpeed = 8.8f;
+		}
+
+		if (tileId == 181) {
+
 		}
 
 		x = tempx;

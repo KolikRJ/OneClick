@@ -8,5 +8,4 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
  * @brief Класс камеры.
  */
 public class MyCamera extends OrthographicCamera {
-
 }
